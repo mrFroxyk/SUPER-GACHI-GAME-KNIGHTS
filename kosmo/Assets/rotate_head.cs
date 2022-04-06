@@ -21,8 +21,9 @@ public class rotate_head : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rotationX += Input.GetAxis("Mouse X") * speed_rot;
-        rotationY -= Input.GetAxis("Mouse Y") * speed_rot;
+        rotationX += Input.GetAxis("Mouse X") * speed_rot*Time.deltaTime*50;
+        rotationY -= Input.GetAxis("Mouse Y") * speed_rot*Time.deltaTime*50;
+        //transform.eulerAngles = new Vector3(0, , 0f);
         rotationY = Mathf.Clamp(rotationY, -90f, 75f);
         transform.eulerAngles = new Vector3(rotationY, rotationX, 0f);
         

@@ -11,6 +11,7 @@ public class player : MonoBehaviour
     public float JumpSpeed = 100f;
     public float graviti =9.8f;
     private float Jspeed = 0f;
+    public float rotationY = 0f;
 
 
     void Start()
@@ -25,23 +26,29 @@ public class player : MonoBehaviour
     void Update()
     {
         
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = 4f;
+            speed = 5f;
+        }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            speed = 1f;
         }
         else
         {
-            speed = 2f;
+            speed = 3f;
         }
-        Quaternion qua = new Quaternion(0, cam.rotation.y, 0, cam.rotation.w);
+        Quaternion qua = new Quaternion(0, cam.rotation.y, 0, 1);
         transform.rotation = qua;
-        move(speed, Input.GetKey(KeyCode.LeftShift));
+        move(speed);
     }
-    void move(float speed,bool Lshift)
+    void move(float speed)
     {
         rotationX += Input.GetAxis("Mouse X") * 3f;
         transform.eulerAngles = new Vector3(0, rotationX, 0f);
-        Vector3 vector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 vector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical") / 2f);
+        Vector3 PredPolet = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical") / 2f);
         if (CharacterController.isGrounded)
         {
             vector = new Vector3(Input.GetAxis("Horizontal") * 2f, 0, Input.GetAxis("Vertical"));
