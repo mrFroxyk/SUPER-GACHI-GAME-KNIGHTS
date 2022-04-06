@@ -8,6 +8,9 @@ public class player : MonoBehaviour
     public float speed = 2f;
     public Transform cam;
     private float rotationX = 0f;
+    public float JumpSpeed = 100f;
+    public float graviti =9.8f;
+    private float Jspeed = 0f;
 
 
     void Start()
@@ -32,22 +35,36 @@ public class player : MonoBehaviour
         }
         Quaternion qua = new Quaternion(0, cam.rotation.y, 0, cam.rotation.w);
         transform.rotation = qua;
-        move();
+        move(speed, Input.GetKey(KeyCode.LeftShift));
     }
-    void move()
+    void move(float speed,bool Lshift)
     {
         rotationX += Input.GetAxis("Mouse X") * 3f;
         transform.eulerAngles = new Vector3(0, rotationX, 0f);
-        Vector3 vector = new Vector3(Input.GetAxis("Horizontal")*2f, 0, Input.GetAxis("Vertical"));
-        vector = transform.TransformDirection(vector);
-        vector *= speed;
-        //CharacterController.SimpleMove(vector);
-        if (Input.GetButtonDown("Jump"))
+        Vector3 vector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (CharacterController.isGrounded)
         {
-        }
+            vector = new Vector3(Input.GetAxis("Horizontal") * 2f, 0, Input.GetAxis("Vertical"));
+            Jspeed = 0f;
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jspeed = JumpSpeed;
             
-        vector.y -= 200.0F * Time.deltaTime;
+            }
+        }
+        else
+        {
+
+        }
+        vector *= speed;
+        vector = transform.TransformDirection(vector);
+        
+        Jspeed -= graviti * Time.deltaTime;
+        vector.y = Jspeed;
+
+        vector.y -= graviti * Time.deltaTime;
         CharacterController.Move(vector * Time.deltaTime);
+        Debug.Log( CharacterController.isGrounded);
 
         
     }
