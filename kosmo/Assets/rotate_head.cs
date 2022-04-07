@@ -27,7 +27,16 @@ public class rotate_head : MonoBehaviour
         //rotationY = Mathf.Clamp(rotationY, -90f, 75f);
         //transform.eulerAngles = new Vector3(rotationY, rotationX, 0f);
         //Debug.Log(rotationX);
+        Rot();
 
-
+    }
+    void Rot()
+    {
+        rotationX += Input.GetAxis("Mouse X") * 3f * Time.deltaTime * 50;
+        rotationY -= Input.GetAxis("Mouse Y") * 3f * Time.deltaTime * 50;
+        //transform.eulerAngles = new Vector3(0, , 0f);
+        rotationY = Mathf.Clamp(rotationY, -90f, 75f);
+        transform.eulerAngles = new Vector3(rotationY, rotationX, 0f);
+        Debug.Log(transform.eulerAngles.x);
     }
 }

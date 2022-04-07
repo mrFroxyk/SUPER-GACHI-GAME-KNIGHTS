@@ -14,13 +14,6 @@ public class player : MonoBehaviour
     public Vector3 PredPolet = new Vector3(0,0,0);
     public Vector3 vector = new Vector3(0, 0, 0);
 
-    private float rotationY = 0f;
-    private float rotationX = 0f;
-    private float CamY = 0f;
-
-
-
-
     void Start()
     {
         Cursor.visible = false;
@@ -32,8 +25,6 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Rot();
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 5f;
@@ -49,20 +40,10 @@ public class player : MonoBehaviour
         //rotationX += Input.GetAxis("Mouse X") * 3f * Time.deltaTime * 50;
         ////CamY = cam.eulerAngles.y;
         //Vector3 qua = new Vector3(0, rotationX, 0);
-
-        
         move(speed);
         
     }
-    void Rot()
-    {
-        rotationX += Input.GetAxis("Mouse X") * 3f * Time.deltaTime * 50;
-        rotationY -= Input.GetAxis("Mouse Y") * 3f * Time.deltaTime * 50;
-        //transform.eulerAngles = new Vector3(0, , 0f);
-        rotationY = Mathf.Clamp(rotationY, -90f, 75f);
-        transform.eulerAngles = new Vector3(rotationY, rotationX, 0f);
-        Debug.Log(transform.eulerAngles.x);
-    }
+    
     void move(float speed)
     {
 
