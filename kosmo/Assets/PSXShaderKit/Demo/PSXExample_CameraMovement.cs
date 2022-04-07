@@ -30,16 +30,13 @@ public class PSXExample_CameraMovement : MonoBehaviour
     void Update()
     {
         float speed = 0.5f;
-        if (Input.GetMouseButton(1))
-        {
-            rot();
-        }
+        rot();
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 1.5f;
         }
         
-        transform.position += new Vector3(transform.forward.x, 0, transform.forward.z) * Input.GetAxis("Vertical") * speed * 2.5f * Time.deltaTime;
-        transform.position += new Vector3(transform.right.x, 0, transform.right.z) * Input.GetAxis("Horizontal") * speed*2.5f * Time.deltaTime;
+        transform.localPosition += new Vector3(transform.forward.x, 0, transform.forward.z) * Input.GetAxis("Vertical") * speed * 2.5f * Time.deltaTime;
+        transform.localPosition += new Vector3(transform.right.x, 0, transform.right.z) * Input.GetAxis("Horizontal") * speed*2.5f * Time.deltaTime;
     }
 }

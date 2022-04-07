@@ -67,6 +67,8 @@
     <Compile Include="Assets\PSXShaderKit\Demo\PSXExample_CameraMovement.cs" />
     <Compile Include="Assets\PSXShaderKit\Scripts\PSXPostProcessEffect.cs" />
     <Compile Include="Assets\PSXShaderKit\Scripts\PSXShaderManager.cs" />
+    <Compile Include="Assets\player.cs" />
+    <Compile Include="Assets\rotate_head.cs" />
     <None Include="Assets\PSXShaderKit\Shaders\PSX-VertexLitTransparentCutout.shader" />
     <None Include="Assets\PSXShaderKit\Shaders\PSX-UnlitTransparentCutout.shader" />
     <None Include="Assets\PSXShaderKit\Shaders\PSX-Utils.cginc" />
