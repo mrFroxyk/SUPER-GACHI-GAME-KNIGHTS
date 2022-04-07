@@ -37,6 +37,5 @@ public class rotate_head : MonoBehaviour
         //transform.eulerAngles = new Vector3(0, , 0f);
         rotationY = Mathf.Clamp(rotationY, -90f, 75f);
         transform.eulerAngles = new Vector3(rotationY, rotationX, 0f);
-        Debug.Log(transform.eulerAngles.x);
     }
 }

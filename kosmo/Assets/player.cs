@@ -25,59 +25,53 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = 5f;
-        }
-        else if (Input.GetKey(KeyCode.LeftControl))
-        {
-            speed = 1f;
-        }
-        else
-        {
-            speed = 3f;
-        }
-        //rotationX += Input.GetAxis("Mouse X") * 3f * Time.deltaTime * 50;
-        ////CamY = cam.eulerAngles.y;
-        //Vector3 qua = new Vector3(0, rotationX, 0);
-        move(speed);
+        
+        move(ref PredPolet, ref speed);
+        Debug.Log(PredPolet);
+
         
     }
-    
-    void move(float speed)
+    void move ( ref Vector3 PredPolet, ref float speed)
     {
-
-
-        //transform.eulerAngles = new Vector3(0, rotationX, 0f);
-        Vector3 vector = new Vector3(Input.GetAxis("Horizontal") * 2f, 0, Input.GetAxis("Vertical"));
-        
+        Vector3 vector = Vector3.zero;
+        Vector3 vector1 = new Vector3(Input.GetAxis("Horizontal") * 2f, 0, Input.GetAxis("Vertical"));
+        float horX = Input.GetAxis("Horizontal") * 2f;
+        float VertZ = Input.GetAxis("Vertical");
         if (CharacterController.isGrounded)
         {
-            //Vector3 PredPolet = new Vector3(Input.GetAxis("Horizontal") * 2f, 0, Input.GetAxis("Vertical"));
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = 5f;
+            }
+            else if (Input.GetKey(KeyCode.LeftControl))
+            {
+                speed = 1f;
+            }
+            else
+            {
+                speed = 3f;
+            }
+            PredPolet = new Vector3(Input.GetAxis("Horizontal") * 2f, 0, Input.GetAxis("Vertical"));
+            vector = PredPolet;
             //vector = new Vector3(Input.GetAxis("Horizontal") * 2f, 0, Input.GetAxis("Vertical"));
             Jspeed = 0f;
             if (Input.GetButtonDown("Jump"))
             {
                 Jspeed = JumpSpeed;
-            
+                
             }
         }
-        else
+        if (CharacterController.isGrounded == false)
         {
-            //vector = PredPolet;
+            vector = new Vector3(PredPolet.x+ horX/2, PredPolet.y, PredPolet.z+VertZ/2);
         }
-        
-
         vector *= speed;
-        vector = transform.TransformDirection(vector);
-
+        vector = cam.transform.TransformDirection(vector);
         Jspeed -= graviti * Time.deltaTime;
         vector.y = Jspeed;
-
         vector.y -= graviti * Time.deltaTime;
         CharacterController.Move(vector * Time.deltaTime);
-        //Debug.Log( CharacterController.isGrounded);
 
-        
+
     }
 }

@@ -18,6 +18,12 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Image
   sceneClasses:
     "Assets/\u0441 \u043D\u0443\u043B\u044F.unity":
     - Class: 1
@@ -53,7 +59,13 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 11290}
+    - Class: 114
+      Script: {instanceID: 11488}
+    - Class: 114
       Script: {instanceID: 11582}
+    - Class: 114
+      Script: {instanceID: 11876}
     - Class: 114
       Script: {instanceID: 12018}
     - Class: 114
@@ -61,8 +73,14 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12720}
     - Class: 114
+      Script: {instanceID: 12746}
+    - Class: 114
+      Script: {instanceID: 13096}
+    - Class: 114
       Script: {instanceID: 13132}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 134
       Script: {instanceID: 0}
     - Class: 135
       Script: {instanceID: 0}
@@ -80,7 +98,17 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
     - Class: 218
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    - Class: 1953259897
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
