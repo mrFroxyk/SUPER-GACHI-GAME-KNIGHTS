@@ -19,7 +19,7 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
   sceneClasses:
-    Assets/PSXShaderKit/Demo/Demo Scene.unity:
+    "Assets/\u0441 \u043D\u0443\u043B\u044F.unity":
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -289,7 +289,7 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 13db0e9f586650646c3fd182b2f83590
+      Hash: 6306d5f21d3962bd559232b241e20883
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: player
@@ -541,6 +541,6 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   platform: 5
   scenePathNames:
-  - Assets/PSXShaderKit/Demo/Demo Scene.unity
+  - "Assets/\u0441 \u043D\u0443\u043B\u044F.unity"
   playerPath: "C:/Users/anton/OneDrive/\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B/GitHub/SUPER-GACHI-GAME-KNIGHTS/\u0441\u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u0430\u044F
     \u0438\u0433\u0440\u0430/kosmo.exe"
