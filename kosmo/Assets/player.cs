@@ -16,15 +16,24 @@ public class player : MonoBehaviour
     public Vector3 vector = new Vector3(0, 0, 0);
     public float maxDist = 0.2f;
     public float tim = 0f;
+
+    public  Animation animation;
+
     void Start()
     {
+        CharacterController = GetComponent<CharacterController>();
+        animation = cam.GetComponent<Animation>();
+        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        CharacterController = GetComponent<CharacterController>();
+
+        animation.Play();
     }
     
     void Update()
     {
+        //animation.SetBool("Camera", false);
+        
         move(ref PredPolet, ref speed, ref tim);
     }
     void move ( ref Vector3 PredPolet, ref float speed,ref float tim)
@@ -34,12 +43,15 @@ public class player : MonoBehaviour
         float VertY = Input.GetAxis("Vertical");
         if (NaZemle())
         {
-            if (Mathf.Abs(horX)>0.2 || Mathf.Abs(VertY) > 0.2)
+            
+            if (Mathf.Abs(horX)>0.2 ^ Mathf.Abs(VertY) > 0.2)
             {
                 tim += Time.deltaTime;
+                
             }
             else
             {
+
                 tim = 0;
             }
             
@@ -57,7 +69,7 @@ public class player : MonoBehaviour
             }
             PredPolet = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")); 
             vector = PredPolet;
-            Jspeed = 0f;
+            
             if (Input.GetButtonDown("Jump"))
             {
                 Jspeed = JumpSpeed;
@@ -69,15 +81,24 @@ public class player : MonoBehaviour
             tim = 0;
             vector = new Vector3(PredPolet.x+ horX/2, PredPolet.y, PredPolet.z);; //значительно фиксирует вектор полета
         }
-        cam.transform.position = new Vector3(transform.position.x, transform.position.y+1+(Mathf.Sin(tim * 10))/Time.deltaTime/1300, transform.position.z);
+        
         vector *= speed;
         vector = cam.transform.TransformDirection(vector);
         Jspeed -= graviti * Time.deltaTime;
         vector.y = Jspeed;
         vector.y -= graviti * Time.deltaTime; //гравитация 
         CharacterController.Move(vector * Time.deltaTime);
-        Debug.Log(NaZemle());
+        
     }
+    //IEnumerator KachanieGolovoi()
+    //{
+    //    Debug.Log("222");
+    //    for (float i=0f; i < 0.2; i += Time.deltaTime)
+    //    {
+    //        cam.transform.position = new Vector3(transform.position.x, transform.position.y + 1 + (Mathf.Sin(i * 20)*1), transform.position.z);
+    //        yield return null;
+    //    }
+    //}
     bool NaZemle()
     {
         float Dist = 0f;

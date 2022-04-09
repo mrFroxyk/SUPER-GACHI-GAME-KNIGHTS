@@ -22,7 +22,7 @@ public class PSXExample_CameraMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "stena")
         {
-            Debug.Log("pp");
+
         }
     }
 

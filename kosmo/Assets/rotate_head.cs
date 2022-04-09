@@ -10,23 +10,14 @@ public class rotate_head : MonoBehaviour
     private float rotationY = 0f;
     private float rotationX = 0f;
 
-
-    // Start is called before the first frame update
     void Start()
     {
 
     }
-    
 
-    // Update is called once per frame
     void Update()
     {
-        //rotationX += Input.GetAxis("Mouse X") * speed_rot * Time.deltaTime * 50;
-        //rotationY -= Input.GetAxis("Mouse Y") * speed_rot * Time.deltaTime * 50;
-        ////transform.eulerAngles = new Vector3(0, , 0f);
-        //rotationY = Mathf.Clamp(rotationY, -90f, 75f);
-        //transform.eulerAngles = new Vector3(rotationY, rotationX, 0f);
-        //Debug.Log(rotationX);
+
         Rot();
 
     }
@@ -34,7 +25,7 @@ public class rotate_head : MonoBehaviour
     {
         rotationX += Input.GetAxis("Mouse X") * 3f * Time.deltaTime * 50;
         rotationY -= Input.GetAxis("Mouse Y") * 3f * Time.deltaTime * 50;
-        //transform.eulerAngles = new Vector3(0, , 0f);
+
         rotationY = Mathf.Clamp(rotationY, -90f, 75f);
         transform.eulerAngles = new Vector3(rotationY, rotationX, 0f);
     }

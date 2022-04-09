@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Vrashalka : MonoBehaviour
 {
+    public float Speed = 1f;
     void Update()
     {
-        transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
+        Vector3 vector3 = new Vector3(0, 45, 0) * Time.deltaTime * Speed;
+        vector3 = transform.TransformDirection(vector3);
+        transform.Rotate(vector3);
     }
 }
