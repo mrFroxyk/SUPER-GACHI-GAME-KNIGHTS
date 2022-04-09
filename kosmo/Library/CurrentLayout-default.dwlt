@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 126
+  controlID: 56
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 84
+  controlID: 57
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -397,9 +397,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ac3f0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: dcf6ffffc4f9ffff66fbffff
+      m_ExpandedIDs: 98f5fffff4f8ffffd0f9ffff66fbffff24490000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -459,9 +459,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 14.608919, y: 21.942482, z: 40.720325}
+    m_Target: {x: 171.86868, y: -29.478361, z: -57.484642}
     speed: 2
-    m_Value: {x: 14.608919, y: 21.942482, z: 40.720325}
+    m_Value: {x: 171.86868, y: -29.478361, z: -57.484642}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -507,13 +507,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.064169675, y: 0.0944791, z: -0.0060792766, w: 0.9934635}
+    m_Target: {x: 0.054396812, y: 0.828707, z: -0.081806, w: 0.5510307}
     speed: 2
-    m_Value: {x: 0.06416804, y: 0.0944767, z: -0.0060791224, w: 0.9934383}
+    m_Value: {x: 0.056048404, y: 0.82844067, z: -0.08429007, w: 0.5508536}
   m_Size:
-    m_Target: 39.586174
+    m_Target: 117.25142
     speed: 2
-    m_Value: 39.586174
+    m_Value: 112.20232
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -603,19 +603,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\79831\Documents\GitHub\SUPER-GACHI-GAME-KNIGHTS\kosmo
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 62380000
-    m_LastClickedID: 14434
+    m_SelectedIDs: 04380000
+    m_LastClickedID: 14340
     m_ExpandedIDs: 000000000438000006380000083800000a3800000c3800000e38000010380000123800001438000016380000183800001a3800001c3800001e38000020380000223800002438000026380000283800002a38000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -696,7 +696,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 4}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 311
