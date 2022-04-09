@@ -1,18 +1,4 @@
-Base path: 'B:/Games/2019.4.20f1/Editor/Data', plugins path 'B:/Games/2019.4.20f1/Editor/Data/PlaybackEngines'
+Base path: 'C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
-Cmd: preprocess
-  insize=1689 outsize=743 ok=1
-Cmd: preprocess
-  insize=846 outsize=447 ok=1
-Cmd: preprocess
-  insize=1893 outsize=902 ok=1
-Cmd: preprocess
-  insize=2496 outsize=245 ok=1
-Cmd: preprocess
-  insize=1181 outsize=640 ok=1
-Cmd: preprocess
-  insize=797 outsize=470 ok=1
-Cmd: preprocess
-  insize=711 outsize=388 ok=1
-Cmd: preprocess
-  insize=731 outsize=469 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=10992 outsize=1298 kw=UNITY_PASS_META pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1

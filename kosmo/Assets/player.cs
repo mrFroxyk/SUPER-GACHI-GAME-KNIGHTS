@@ -32,7 +32,7 @@ public class player : MonoBehaviour
         Vector3 vector = Vector3.zero;
         float horX = Input.GetAxis("Horizontal");
         float VertY = Input.GetAxis("Vertical");
-        if (CharacterController.isGrounded)
+        if (NaZemle())
         {
             if (Mathf.Abs(horX)>0.2 || Mathf.Abs(VertY) > 0.2)
             {
@@ -63,7 +63,8 @@ public class player : MonoBehaviour
                 Jspeed = JumpSpeed;
             }
         }
-        if (CharacterController.isGrounded == false)
+        if (NaZemle() == false)
+
         {
             tim = 0;
             vector = new Vector3(PredPolet.x+ horX/2, PredPolet.y, PredPolet.z);; //значительно фиксирует вектор полета
@@ -75,27 +76,30 @@ public class player : MonoBehaviour
         vector.y = Jspeed;
         vector.y -= graviti * Time.deltaTime; //гравитация 
         CharacterController.Move(vector * Time.deltaTime);
+        Debug.Log(NaZemle());
     }
-    //bool NaZemle()
-    //{
-    //    float Dist = 0f;
-    //    float Ploshad = 0f;
-    //    foreach (GameObject i in from)
-    //    {
-    //        Ray ray = new Ray(i.transform.position, -transform.up);
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(ray, out hit))
-    //        {
-    //            if (hit.collider.gameObject.tag == "stena" && hit.distance < 0.3) { return true; }
-    //            if (hit.distance < 0.3) { Ploshad += 1;}
-    //            Dist += hit.distance;
-    //            Debug.DrawRay(i.transform.position, -transform.up, Color.red, 1f);
-    //        }
-    //    }
-    //    Dist /= 11;
-        
-    //    if(CharacterController.isGrounded==false) { return false; }
-    //    else { return true; }
+    bool NaZemle()
+    {
+        float Dist = 0f;
+        float Ploshad = 0f;
 
-    //}
+        foreach (GameObject i in from)
+        {
+            Ray ray = new Ray(i.transform.position, -transform.up);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.tag == "stena" && hit.distance < 0.3) { return true; }
+                if (hit.distance < 0.3) { Ploshad += 1; }
+                Dist += hit.distance;
+                Debug.DrawRay(i.transform.position, -transform.up, Color.red, 1f);
+            }
+        }
+        Dist /= 11;
+
+        if (CharacterController.isGrounded == false ^ Dist>maxDist) { return false; }
+
+        else { return CharacterController.isGrounded; }
+
+    }
 }
