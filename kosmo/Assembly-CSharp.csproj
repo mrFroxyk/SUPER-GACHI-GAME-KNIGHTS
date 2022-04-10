@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scenes\меню 1\MainMenu.cs" />
     <Compile Include="Assets\Scenes\меню 1\Vrashalka.cs" />
+    <Compile Include="Assets\camerapolet.cs" />
     <Compile Include="Assets\player.cs" />
     <Compile Include="Assets\rotate_head.cs" />
     <Compile Include="Assets\Плагины\PSXShaderKit\Demo\PSXExample_CameraMovement.cs" />

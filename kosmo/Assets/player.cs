@@ -7,32 +7,33 @@ public class player : MonoBehaviour
     CharacterController CharacterController;
     public float speed = 2f;
     public GameObject cam;
+    public GameObject PoletCam;
     public GameObject[] from;
 
     public float JumpSpeed = 100f;
     public float graviti =9.8f;
     private float Jspeed = 0f;
-    public Vector3 PredPolet = new Vector3(0,0,0);
-    public Vector3 vector = new Vector3(0, 0, 0);
+    private Vector3 PredPolet = new Vector3(0,0,0);
     public float maxDist = 0.2f;
-    public float tim = 0f;
+    private float tim = 0f;
 
     public  Animation animation;
+    public AnimationClip a;
+    public Animator anim;
 
     void Start()
     {
         CharacterController = GetComponent<CharacterController>();
         animation = cam.GetComponent<Animation>();
-        
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        anim = cam.GetComponent<Animator>();
+        //anim.SetBool("IsWalk", false);
 
-        animation.Play();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;  
     }
     
     void Update()
     {
-        //animation.SetBool("Camera", false);
         
         move(ref PredPolet, ref speed, ref tim);
     }
@@ -47,12 +48,23 @@ public class player : MonoBehaviour
             if (Mathf.Abs(horX)>0.2 ^ Mathf.Abs(VertY) > 0.2)
             {
                 tim += Time.deltaTime;
-                
+                animation.Play(a.name);
+                //anim.SetBool("IsWalk", true);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                     
+                }
+                else if (Input.GetKey(KeyCode.LeftControl))
+                {
+
+                }
+                else
+                {
+                }
             }
             else
             {
-
-                tim = 0;
+                //anim.SetBool("IsWalk", false);
             }
             
             if (Input.GetKey(KeyCode.LeftShift))
@@ -62,10 +74,12 @@ public class player : MonoBehaviour
             else if (Input.GetKey(KeyCode.LeftControl))
             {
                 speed = 1f;
+                
             }
             else
             {
                 speed = 3f;
+
             }
             PredPolet = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")); 
             vector = PredPolet;
@@ -76,30 +90,21 @@ public class player : MonoBehaviour
             }
         }
         if (NaZemle() == false)
-
         {
-            tim = 0;
+            speed = 3f;
             vector = new Vector3(PredPolet.x+ horX/2, PredPolet.y, PredPolet.z);; //значительно фиксирует вектор полета
         }
         
         vector *= speed;
-        vector = cam.transform.TransformDirection(vector);
+        vector = PoletCam.transform.TransformDirection(vector);
         Jspeed -= graviti * Time.deltaTime;
         vector.y = Jspeed;
         vector.y -= graviti * Time.deltaTime; //гравитация 
         CharacterController.Move(vector * Time.deltaTime);
         
     }
-    //IEnumerator KachanieGolovoi()
-    //{
-    //    Debug.Log("222");
-    //    for (float i=0f; i < 0.2; i += Time.deltaTime)
-    //    {
-    //        cam.transform.position = new Vector3(transform.position.x, transform.position.y + 1 + (Mathf.Sin(i * 20)*1), transform.position.z);
-    //        yield return null;
-    //    }
-    //}
-    bool NaZemle()
+
+    public bool NaZemle()
     {
         float Dist = 0f;
         float Ploshad = 0f;
@@ -121,6 +126,14 @@ public class player : MonoBehaviour
         if (CharacterController.isGrounded == false ^ Dist>maxDist) { return false; }
 
         else { return CharacterController.isGrounded; }
-
     }
 }
+//IEnumerator KachanieGolovoi()
+//{
+//    Debug.Log("222");
+//    for (float i=0f; i < 0.2; i += Time.deltaTime)
+//    {
+//        cam.transform.position = new Vector3(transform.position.x, transform.position.y + 1 + (Mathf.Sin(i * 20)*1), transform.position.z);
+//        yield return null;
+//    }
+//}
