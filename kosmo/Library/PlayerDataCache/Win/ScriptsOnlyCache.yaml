@@ -144,6 +144,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11344}
     - Class: 114
+      Script: {instanceID: 11566}
+    - Class: 114
       Script: {instanceID: 11618}
     - Class: 114
       Script: {instanceID: 11750}
@@ -162,6 +164,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13850}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
       Script: {instanceID: 0}
     - Class: 135
       Script: {instanceID: 0}
@@ -428,7 +432,7 @@ ScriptsOnlyBuild:
     className: Vrashalka
   - hash:
       serializedVersion: 2
-      Hash: 62c080b1396b8e926ec85ef19e3ce146
+      Hash: 2fc0fb30e542fc2616b7263c25d90eb6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: player

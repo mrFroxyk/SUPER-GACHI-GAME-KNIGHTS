@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
@@ -21,22 +22,53 @@ public class player : MonoBehaviour
     public AnimationClip a;
     public Animator anim;
 
+    private float TransZ;
+    private float TransX;
+    public Text text;
+    private float MaxSpeeddd;
+    private int frame;
+
     void Start()
     {
         CharacterController = GetComponent<CharacterController>();
-        animation = cam.GetComponent<Animation>();
+        //animation = cam.GetComponent<Animation>();
         anim = cam.GetComponent<Animator>();
-        //anim.SetBool("IsWalk", false);
+        anim.SetBool("IsWalk", false);
 
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;  
+        Cursor.lockState = CursorLockMode.Locked;
+
+         float TransZ = transform.position.z;
+         float TransX = transform.position.x;
+         MaxSpeeddd = 0f;
+        
+         
     }
     
     void Update()
     {
-        
+        frame++;
+        if (frame==3)
+        {
+            MaxSpeeddd = 0f;
+        }
+
+
         move(ref PredPolet, ref speed, ref tim);
+        //Debug.Log(SchetchikSpeed(ref TransZ, ref TransX));
+        //text.text = $"SPEED {SchetchikSpeed(ref TransZ, ref TransX)} </n> fff";
+        float z = (SchetchikSpeed(ref TransZ, ref TransX));
+        Debug.Log(z);
+        if (z > MaxSpeeddd)
+        {
+            MaxSpeeddd = z;
+        }
+        text.text = $"SPEED: { z} " + "\n" + $"MaxSpeed: {MaxSpeeddd}";
+        
+
     }
+
+
     void move ( ref Vector3 PredPolet, ref float speed,ref float tim)
     {
         Vector3 vector = Vector3.zero;
@@ -48,8 +80,8 @@ public class player : MonoBehaviour
             if (Mathf.Abs(horX)>0.2 ^ Mathf.Abs(VertY) > 0.2)
             {
                 tim += Time.deltaTime;
-                animation.Play(a.name);
-                //anim.SetBool("IsWalk", true);
+                //animation.Play(a.name);
+                anim.SetBool("IsWalk", true);
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
                      
@@ -64,7 +96,7 @@ public class player : MonoBehaviour
             }
             else
             {
-                //anim.SetBool("IsWalk", false);
+                anim.SetBool("IsWalk", false);
             }
             
             if (Input.GetKey(KeyCode.LeftShift))
@@ -93,6 +125,7 @@ public class player : MonoBehaviour
         {
             speed = 3f;
             vector = new Vector3(PredPolet.x+ horX/2, PredPolet.y, PredPolet.z);; //значительно фиксирует вектор полета
+            
         }
         
         vector *= speed;
@@ -126,6 +159,21 @@ public class player : MonoBehaviour
         if (CharacterController.isGrounded == false ^ Dist>maxDist) { return false; }
 
         else { return CharacterController.isGrounded; }
+    }
+    float SchetchikSpeed(ref float TransZ, ref float TransX)
+    {
+        float TransZ2 = transform.position.z;
+        float TransX2 = transform.position.x;
+        float deltaTransZ = TransZ2 - TransZ;
+        float deltaTransX = TransX2 - TransX;
+
+        TransZ = transform.position.z;
+        TransX = transform.position.x;
+
+        float rasstoianie = Mathf.Sqrt((deltaTransZ * deltaTransZ + deltaTransX * deltaTransX));
+        float speed = rasstoianie / Time.deltaTime;
+
+        return speed;
     }
 }
 //IEnumerator KachanieGolovoi()
