@@ -11,8 +11,8 @@ public class player : MonoBehaviour
     public GameObject PoletCam;
     public GameObject[] from;
 
-    public float JumpSpeed = 100f;
-    public float graviti =9.8f;
+    public float JumpSpeed = 3f;
+    public float graviti1 = 4f;
     private float Jspeed = 0f;
     private Vector3 PredPolet = new Vector3(0,0,0);
     public float maxDist = 0.2f;
@@ -40,46 +40,28 @@ public class player : MonoBehaviour
 
          float TransZ = transform.position.z;
          float TransX = transform.position.x;
-         MaxSpeeddd = 0f;
-        
-         
+         MaxSpeeddd = 0f; 
     }
     
     void Update()
     {
-        frame++;
-        if (frame==3)
-        {
-            MaxSpeeddd = 0f;
-        }
-
-
-        move(ref PredPolet, ref speed, ref tim);
-        //Debug.Log(SchetchikSpeed(ref TransZ, ref TransX));
-        //text.text = $"SPEED {SchetchikSpeed(ref TransZ, ref TransX)} </n> fff";
-        float z = (SchetchikSpeed(ref TransZ, ref TransX));
-        Debug.Log(z);
-        if (z > MaxSpeeddd)
-        {
-            MaxSpeeddd = z;
-        }
-        text.text = $"SPEED: { z} " + "\n" + $"MaxSpeed: {MaxSpeeddd}";
-        
-
+        move(ref PredPolet, ref speed, ref tim, ref graviti1);
+        sc();   //если хотетите убрать текст со скоростью, закоментете это
+        //Debug.Log($"{NaZemle()} {graviti}"); //дебагер)))
     }
-
-
-    void move ( ref Vector3 PredPolet, ref float speed,ref float tim)
+    
+    void move ( ref Vector3 PredPolet, ref float speed,ref float tim,ref float graviti1)
     {
+        float graviti = graviti1;
+
         Vector3 vector = Vector3.zero;
         float horX = Input.GetAxis("Horizontal");
         float VertY = Input.GetAxis("Vertical");
         if (NaZemle())
         {
-            
+            graviti = graviti1*20;
             if (Mathf.Abs(horX)>0.2 ^ Mathf.Abs(VertY) > 0.2)
             {
-                tim += Time.deltaTime;
                 //animation.Play(a.name);
                 anim.SetBool("IsWalk", true);
                 if (Input.GetKey(KeyCode.LeftShift))
@@ -113,27 +95,34 @@ public class player : MonoBehaviour
                 speed = 3f;
 
             }
-            PredPolet = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")); 
+            PredPolet = new Vector3(horX, 0, VertY); 
             vector = PredPolet;
-            
+            Jspeed = 0f;
+            if (Input.GetButton("Jump"))
+            {
+                graviti = graviti1;
+            }
             if (Input.GetButtonDown("Jump"))
             {
                 Jspeed = JumpSpeed;
             }
         }
-        if (NaZemle() == false)
+        else
         {
+            graviti = graviti1;
             speed = 3f;
             vector = new Vector3(PredPolet.x+ horX/2, PredPolet.y, PredPolet.z);; //значительно фиксирует вектор полета
-            
+            anim.SetBool("IsWalk", false);
         }
-        
+        Debug.Log($"{NaZemle()} {graviti}  {transform.position.y}"); //дебагер)))
+
         vector *= speed;
         vector = PoletCam.transform.TransformDirection(vector);
         Jspeed -= graviti * Time.deltaTime;
         vector.y = Jspeed;
         vector.y -= graviti * Time.deltaTime; //гравитация 
         CharacterController.Move(vector * Time.deltaTime);
+
         
     }
 
@@ -174,6 +163,17 @@ public class player : MonoBehaviour
         float speed = rasstoianie / Time.deltaTime;
 
         return speed;
+    }
+    void sc()
+    {
+        frame++;
+        if (frame == 3) { MaxSpeeddd = 0f; }
+        float z = (SchetchikSpeed(ref TransZ, ref TransX));
+        if (z > MaxSpeeddd)
+        {
+            MaxSpeeddd = z;
+        }
+        text.text = $"SPEED: { z} " + "\n" + $"MaxSpeed: {MaxSpeeddd}";
     }
 }
 //IEnumerator KachanieGolovoi()

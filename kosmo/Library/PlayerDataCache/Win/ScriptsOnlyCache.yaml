@@ -15,8 +15,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -432,7 +434,7 @@ ScriptsOnlyBuild:
     className: Vrashalka
   - hash:
       serializedVersion: 2
-      Hash: 2fc0fb30e542fc2616b7263c25d90eb6
+      Hash: b68e0cf41ebf8471af18a5a773cd2f2d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: player
