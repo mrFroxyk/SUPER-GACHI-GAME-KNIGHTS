@@ -18,6 +18,7 @@ public class player : MonoBehaviour
     private Vector3 PredPolet = new Vector3(0,0,0);
     public float maxDist = 0.2f;
     private float TimeOnGround = 0f;
+    private float TimeInSky = 0f;
     private float HorX2 = 0f;
     private float VertY2 = 0f;
     private float xx;
@@ -28,7 +29,10 @@ public class player : MonoBehaviour
     public Animator anim;
 
     public new AudioClip audio;
+    public AudioClip KAISER;
     private AudioSource AudioComponent;
+    private AudioSource AudioComponent1;
+    private bool zvyk = true;
 
     private float TransZ;
     private float TransX;
@@ -40,7 +44,8 @@ public class player : MonoBehaviour
     void Start()
     {
         CharacterController = GetComponent<CharacterController>();
-        AudioComponent = GetComponent<AudioSource>();
+        AudioComponent = from[0].GetComponent<AudioSource>();
+        AudioComponent1 = from[1].GetComponent<AudioSource>();
         //animation = cam.GetComponent<Animation>();
         anim = cam.GetComponent<Animator>();
         anim.SetBool("IsWalk", false);
@@ -59,9 +64,16 @@ public class player : MonoBehaviour
         move(ref PredPolet, ref speed, ref graviti1);
         sc();   //если хотетите убрать текст со скоростью, закоментете это
         //Debug.Log($"{CharacterController.isGrounded == false}    {NaZemle()}");
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AudioComponent1.PlayOneShot(KAISER);
+        }
     }
-    
-    void move ( ref Vector3 PredPolet, ref float speed,ref float graviti1)
+    void Pere()
+    {
+        zvyk = true;
+    }
+    void move(ref Vector3 PredPolet, ref float speed, ref float graviti1)
     {
         float graviti = graviti1;
 
@@ -69,7 +81,7 @@ public class player : MonoBehaviour
         float horX = Input.GetAxis("Horizontal");
         float VertY = Input.GetAxis("Vertical");
 
-        if ( Mathf.Sqrt (horX* horX+ VertY* VertY) > 1)
+        if (Mathf.Sqrt(horX * horX + VertY * VertY) > 1)
         {
             float tangens = Mathf.Atan((VertY) / (horX));
             //Debug.Log($"{tangens}  {horX} {VertY}");
@@ -78,67 +90,95 @@ public class player : MonoBehaviour
             if (horX > 0) { horX = Mathf.Cos(tangens); }
             else { horX = -Mathf.Cos(tangens); }
         }
-        
+
         if (NaZemle())
         {
+            TimeInSky = 0f;
             PredPolet = new Vector3(horX, 0, VertY);
             vector = PredPolet;
 
             HorX2 = horX;
             VertY2 = VertY;
 
-            
-            Debug.Log(TimeOnGround);
-            graviti = graviti1*20;
 
-            if (Mathf.Abs(VertY) > 0.2) { anim.SetBool("IsWalk", true); TimeOnGround += 0.02f; }
-            else{anim.SetBool("IsWalk", false); TimeOnGround = 0f; }
 
-            if (Mathf.RoundToInt(TimeOnGround % 2) == 0)
-            {
-                AudioComponent.PlayOneShot(audio);
+            graviti = graviti1 * 20;
+
+            if (Mathf.Abs(VertY) > 0.2) { 
+                anim.SetBool("IsWalk", true); 
+                TimeOnGround += 0.02f;
+                if (zvyk)
+                {
+                    zvyk = false;
+                    if (AudioComponent.isPlaying == false)
+                    {
+                        AudioComponent.PlayOneShot(audio);
+                        Invoke("Pere", 3.8f);
+                    }
+                    else
+                    {
+                        zvyk = true;
+                    }
+                }
+            }
+            else 
+            { 
+                anim.SetBool("IsWalk", false);
+                TimeOnGround = 0f;
+                AudioComponent.Stop();
+                zvyk = true;
             }
 
-            if (Input.GetKey(KeyCode.LeftShift)) { speed = 5f; }
-            else if (Input.GetKey(KeyCode.LeftControl)){ speed = 1f;}
-            else { speed = 3f; }
+            
 
+
+
+            if (Input.GetKey(KeyCode.LeftShift)) { speed = 5.5f; }
+            else if (Input.GetKey(KeyCode.LeftControl)) { speed = 2f; }
+            else { speed = 3.5f; }
+            
+            if (PredPolet.z < -0.2)
+            {
+                speed = Mathf.Clamp(speed, 0f, 2.5f);
+                //speed /= (Mathf.Abs(Mathf.Clamp(PredPolet.z, 0.5f, 1f)));
+            }
             Jspeed = 0f;
             if (Input.GetButton("Jump")) { graviti = graviti1; }
             if (Input.GetButtonDown("Jump")) { Jspeed = JumpSpeed; graviti = graviti1; }
         }
+
         else //если не замле
         {
             graviti = graviti1;
             speed = 3f;
             TimeOnGround = 0f;
-
+            TimeInSky += Time.deltaTime;
 
             if (HorX2 > 0)
             {
-                float z = PredPolet.x + horX * 2 * Time.deltaTime;
-                //float delt = Mathf.Min(Mathf.Abs(z - 0.25f), Mathf.Abs(z - HorX2));
-                xx = Mathf.Clamp(z, -0.5f , HorX2);  
+                float z = PredPolet.x + horX * SpeedPoletManager(TimeInSky) * Time.deltaTime;
+                float delt = Mathf.Min(Mathf.Abs(z - 0.5f), Mathf.Abs(z - HorX2));
+                xx = Mathf.Clamp(z, -1f , HorX2);
             }
             else
             {
-                float z = PredPolet.x + horX * 2 * Time.deltaTime;
-                //float delt = Mathf.Min(Mathf.Abs(z - 0.25f), Mathf.Abs(z - HorX2));
-
-                xx = Mathf.Clamp(z, HorX2, 0.5f );
+                float z = PredPolet.x + horX * SpeedPoletManager(TimeInSky) * Time.deltaTime;
+                float delt = Mathf.Min(Mathf.Abs(z - 1f), Mathf.Abs(z - HorX2));
+                xx = Mathf.Clamp(z, HorX2, 1f );
             }
             if (VertY2 > 0)
             {
-                float z = PredPolet.z + VertY * 2 * Time.deltaTime;
+                float z = PredPolet.z + VertY * SpeedPoletManager(TimeInSky) * Time.deltaTime;
                 //float delt = Mathf.Min(Mathf.Abs(z - 0.25f), Mathf.Abs(z - VertY2));
-                yy = Mathf.Clamp(z, -0.5f, VertY2);
+                yy = Mathf.Clamp(z, -1f, VertY2);
             }
             else
             {
-                float z = PredPolet.z + VertY * 2 * Time.deltaTime;
+                float z = PredPolet.z + VertY * SpeedPoletManager(TimeInSky) * Time.deltaTime;
                 //float delt = Mathf.Min(Mathf.Abs(z - 0.25f), Mathf.Abs(z - VertY2));
-                yy = Mathf.Clamp(z, VertY2, 0.5f);
+                yy = Mathf.Clamp(z, VertY2,1f);
             }
+            
             
             PredPolet =new Vector3(xx, 0, yy);
             vector = PredPolet;
@@ -151,6 +191,21 @@ public class player : MonoBehaviour
         vector.y = Jspeed;
         vector.y -= graviti * Time.deltaTime; //гравитация 
         CharacterController.Move(vector * Time.deltaTime);   
+    }
+    float SpeedPoletManager(float TimeInSky)
+    {
+        if (TimeInSky < 0.5f)
+        {
+            return 3.5f;
+        }
+        else if (TimeInSky < 1)
+        {
+            return 1.5f;
+        }
+        else
+        {
+            return 0.5f;
+        }
     }
     public bool NaZemle()
     {
