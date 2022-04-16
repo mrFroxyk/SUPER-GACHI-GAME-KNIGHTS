@@ -71,6 +71,7 @@
     <Compile Include="Assets\camerapolet.cs" />
     <Compile Include="Assets\player.cs" />
     <Compile Include="Assets\rotate_head.cs" />
+    <Compile Include="Assets\vpered.cs" />
     <Compile Include="Assets\Плагины\PSXShaderKit\Demo\PSXExample_CameraMovement.cs" />
     <Compile Include="Assets\Плагины\PSXShaderKit\Scripts\PSXPostProcessEffect.cs" />
     <Compile Include="Assets\Плагины\PSXShaderKit\Scripts\PSXShaderManager.cs" />

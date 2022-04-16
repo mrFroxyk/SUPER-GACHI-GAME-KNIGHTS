@@ -8,7 +8,7 @@ public class Options_Menu : MonoBehaviour
     public GameObject pauseMenuUI;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
             {
@@ -26,6 +26,7 @@ public class Options_Menu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Pause()
     {
@@ -33,6 +34,7 @@ public class Options_Menu : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     public void Quit()
     {
