@@ -6,18 +6,16 @@ using UnityEngine.Audio;
 
 public class player : MonoBehaviour
 {
-    CharacterController CharacterController;
+    CharacterController CharacterController;  //переменные контроя движения
     public float speed = 2f;
     public GameObject cam;
     public GameObject PoletCam;
     public GameObject[] from;
-
     public float JumpSpeed = 3f;
     public float graviti1 = 4f;
     private float Jspeed = 0f;
     private Vector3 PredPolet = new Vector3(0,0,0);
     public float maxDist = 0.2f;
-    private float TimeOnGround = 0f;
     private float TimeInSky = 0f;
     private float HorX2 = 0f;
     private float VertY2 = 0f;
@@ -34,7 +32,7 @@ public class player : MonoBehaviour
     private AudioSource AudioComponent1;
     private bool zvyk = true;
 
-    private float TransZ;
+    private float TransZ; //считаем скорость
     private float TransX;
     public Text text;
     private float MaxSpeeddd;
@@ -55,7 +53,8 @@ public class player : MonoBehaviour
 
          float TransZ = transform.position.z;
          float TransX = transform.position.x;
-         MaxSpeeddd = 0f; 
+         MaxSpeeddd = 0f;
+        //Time.timeScale = 0.2f;
     }
     
     void Update()
@@ -63,15 +62,10 @@ public class player : MonoBehaviour
         
         move(ref PredPolet, ref speed, ref graviti1);
         sc();   //если хотетите убрать текст со скоростью, закоментете это
-        //Debug.Log($"{CharacterController.isGrounded == false}    {NaZemle()}");
         if (Input.GetKeyDown(KeyCode.E))
         {
             AudioComponent1.PlayOneShot(KAISER);
         }
-    }
-    void Pere()
-    {
-        zvyk = true;
     }
     void move(ref Vector3 PredPolet, ref float speed, ref float graviti1)
     {
@@ -81,7 +75,7 @@ public class player : MonoBehaviour
         float horX = Input.GetAxis("Horizontal");
         float VertY = Input.GetAxis("Vertical");
 
-        if (Mathf.Sqrt(horX * horX + VertY * VertY) > 1)
+        if (Mathf.Sqrt(horX * horX + VertY * VertY) > 1)  //не дает ускорится по диагонали
         {
             float tangens = Mathf.Atan((VertY) / (horX));
             //Debug.Log($"{tangens}  {horX} {VertY}");
@@ -100,20 +94,17 @@ public class player : MonoBehaviour
             HorX2 = horX;
             VertY2 = VertY;
 
-
-
             graviti = graviti1 * 20;
 
-            if (Mathf.Abs(VertY) > 0.2) { 
+            if (Mathf.Abs(VertY) > 0.2) { //если двигаемся 
                 anim.SetBool("IsWalk", true); 
-                TimeOnGround += 0.02f;
                 if (zvyk)
                 {
                     zvyk = false;
                     if (AudioComponent.isPlaying == false)
                     {
                         AudioComponent.PlayOneShot(audio);
-                        Invoke("Pere", 3.8f);
+                        Invoke("Pere", 3f);
                     }
                     else
                     {
@@ -124,20 +115,25 @@ public class player : MonoBehaviour
             else 
             { 
                 anim.SetBool("IsWalk", false);
-                TimeOnGround = 0f;
                 AudioComponent.Stop();
                 zvyk = true;
             }
 
-            
 
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                anim.SetBool("prisel", true);
+            }
+            else
+            {
+                anim.SetBool("prisel", false);
+            }
 
-
-            if (Input.GetKey(KeyCode.LeftShift)) { speed = 5.5f; }
+            if (Input.GetKey(KeyCode.LeftShift)) { speed = 5.5f; } //задаем скорость
             else if (Input.GetKey(KeyCode.LeftControl)) { speed = 2f; }
             else { speed = 3.5f; }
             
-            if (PredPolet.z < -0.2)
+            if (PredPolet.z < -0.2) //если бежим спиной
             {
                 speed = Mathf.Clamp(speed, 0f, 2.5f);
                 //speed /= (Mathf.Abs(Mathf.Clamp(PredPolet.z, 0.5f, 1f)));
@@ -149,21 +145,23 @@ public class player : MonoBehaviour
 
         else //если не замле
         {
+            AudioComponent.Stop();
+            zvyk = true;
+
             graviti = graviti1;
             speed = 3f;
-            TimeOnGround = 0f;
             TimeInSky += Time.deltaTime;
 
             if (HorX2 > 0)
             {
                 float z = PredPolet.x + horX * SpeedPoletManager(TimeInSky) * Time.deltaTime;
-                float delt = Mathf.Min(Mathf.Abs(z - 0.5f), Mathf.Abs(z - HorX2));
+                //float delt = Mathf.Min(Mathf.Abs(z - 0.5f), Mathf.Abs(z - HorX2));
                 xx = Mathf.Clamp(z, -1f , HorX2);
             }
             else
             {
                 float z = PredPolet.x + horX * SpeedPoletManager(TimeInSky) * Time.deltaTime;
-                float delt = Mathf.Min(Mathf.Abs(z - 1f), Mathf.Abs(z - HorX2));
+                //float delt = Mathf.Min(Mathf.Abs(z - 1f), Mathf.Abs(z - HorX2));
                 xx = Mathf.Clamp(z, HorX2, 1f );
             }
             if (VertY2 > 0)
@@ -178,7 +176,7 @@ public class player : MonoBehaviour
                 //float delt = Mathf.Min(Mathf.Abs(z - 0.25f), Mathf.Abs(z - VertY2));
                 yy = Mathf.Clamp(z, VertY2,1f);
             }
-            
+            //Debug.Log($"PredPolet {PredPolet}       HorX2 {HorX2}       VertY2 {VertY2}");
             
             PredPolet =new Vector3(xx, 0, yy);
             vector = PredPolet;
@@ -192,7 +190,7 @@ public class player : MonoBehaviour
         vector.y -= graviti * Time.deltaTime; //гравитация 
         CharacterController.Move(vector * Time.deltaTime);   
     }
-    float SpeedPoletManager(float TimeInSky)
+    float SpeedPoletManager(float TimeInSky)   //вначале мы можем значительно менять скорость, потому я так хочу
     {
         if (TimeInSky < 0.5f)
         {
@@ -207,7 +205,11 @@ public class player : MonoBehaviour
             return 0.5f;
         }
     }
-    public bool NaZemle()
+    void Pere()  //перезарядка звука
+    {
+        zvyk = true;
+    }
+    public bool NaZemle()  //мы на земле?
     {
         float Dist = 0f;
         float Ploshad = 0f;
@@ -230,7 +232,7 @@ public class player : MonoBehaviour
 
         else { return CharacterController.isGrounded; }
     }
-    float SchetchikSpeed(ref float TransZ, ref float TransX)
+    float SchetchikSpeed(ref float TransZ, ref float TransX) //считаем скорость
     {
         float TransZ2 = transform.position.z;
         float TransX2 = transform.position.x;
@@ -245,7 +247,7 @@ public class player : MonoBehaviour
 
         return speed;
     }
-    void sc()
+    void sc() //запомниаем максимальную скорость
     {
         frame++;
         if (frame == 3) { MaxSpeeddd = 0f; }

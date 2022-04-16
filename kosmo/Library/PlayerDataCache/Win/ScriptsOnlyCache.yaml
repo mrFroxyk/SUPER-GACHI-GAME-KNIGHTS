@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - CentreEcranaVectorLuc
     - MainMenu
     - Options_Menu
     - PSXPostProcessEffect
@@ -19,11 +20,15 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    Unity.Timeline.Editor.dll:
+    - UnityEditor.Timeline.SequenceHierarchy
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -73,35 +78,35 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11590}
+      Script: {instanceID: 11370}
     - Class: 114
-      Script: {instanceID: 11812}
+      Script: {instanceID: 11592}
     - Class: 114
-      Script: {instanceID: 11866}
+      Script: {instanceID: 11646}
     - Class: 114
-      Script: {instanceID: 12070}
+      Script: {instanceID: 11850}
     - Class: 114
-      Script: {instanceID: 12386}
+      Script: {instanceID: 12166}
     - Class: 114
-      Script: {instanceID: 12432}
+      Script: {instanceID: 12212}
     - Class: 114
-      Script: {instanceID: 12470}
+      Script: {instanceID: 12250}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12696}
     - Class: 114
-      Script: {instanceID: 13226}
+      Script: {instanceID: 13010}
     - Class: 114
-      Script: {instanceID: 13246}
+      Script: {instanceID: 13030}
     - Class: 114
-      Script: {instanceID: 13584}
+      Script: {instanceID: 13372}
     - Class: 114
-      Script: {instanceID: 13820}
+      Script: {instanceID: 13608}
     - Class: 114
-      Script: {instanceID: 13974}
+      Script: {instanceID: 13762}
     - Class: 114
-      Script: {instanceID: 14098}
+      Script: {instanceID: 13886}
     - Class: 114
-      Script: {instanceID: 14106}
+      Script: {instanceID: 13894}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -120,7 +125,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    "Assets/\u0441 \u043D\u0443\u043B\u044F.unity":
+    "Assets/Scenes/\u0441 \u043D\u0443\u043B\u044F.unity":
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -155,6 +160,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
+    - Class: 90
+      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -163,36 +170,36 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
-    - Class: 111
-      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11590}
+      Script: {instanceID: 11370}
     - Class: 114
-      Script: {instanceID: 11812}
+      Script: {instanceID: 11592}
     - Class: 114
-      Script: {instanceID: 11866}
+      Script: {instanceID: 11646}
     - Class: 114
-      Script: {instanceID: 11998}
+      Script: {instanceID: 11778}
     - Class: 114
-      Script: {instanceID: 12298}
+      Script: {instanceID: 12078}
     - Class: 114
-      Script: {instanceID: 12386}
+      Script: {instanceID: 12166}
     - Class: 114
-      Script: {instanceID: 12578}
+      Script: {instanceID: 12358}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 13086}
+      Script: {instanceID: 12684}
     - Class: 114
-      Script: {instanceID: 13440}
+      Script: {instanceID: 12696}
     - Class: 114
-      Script: {instanceID: 13584}
+      Script: {instanceID: 12870}
     - Class: 114
-      Script: {instanceID: 14106}
+      Script: {instanceID: 13224}
     - Class: 114
-      Script: {instanceID: 14162}
+      Script: {instanceID: 13372}
     - Class: 114
-      Script: {instanceID: 18890}
+      Script: {instanceID: 13894}
+    - Class: 114
+      Script: {instanceID: 13950}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -222,6 +229,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 320
       Script: {instanceID: 0}
     - Class: 1953259897
       Script: {instanceID: 0}
@@ -552,10 +561,22 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
+      Hash: c8c5e65e9fb858572516474d6e2102bc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Options_Menu
+  - hash:
+      serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 340466c31818f4cc672891be043c6bac
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CentreEcranaVectorLuc
   - hash:
       serializedVersion: 2
       Hash: 3cae62e09a50c5d5aae8d0536b3d8fde
@@ -952,14 +973,9 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: c8c5e65e9fb858572516474d6e2102bc
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Options_Menu
   platform: 5
   scenePathNames:
   - "Assets/Scenes/\u043C\u0435\u043D\u044E 1/Menu.unity"
-  - "Assets/\u0441 \u043D\u0443\u043B\u044F.unity"
-  playerPath: C:/Users/79831/Downloads/kosmo.exe
+  - "Assets/Scenes/\u0441 \u043D\u0443\u043B\u044F.unity"
+  playerPath: "C:/Users/anton/OneDrive/\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B/GitHub/SUPER-GACHI-GAME-KNIGHTS/\u0441\u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u0430\u044F
+    \u0438\u0433\u0440\u0430/kosmo.exe"
