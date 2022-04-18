@@ -24,11 +24,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnimatorStateTransitionInspector
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -92,21 +89,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12250}
     - Class: 114
-      Script: {instanceID: 12696}
+      Script: {instanceID: 12698}
     - Class: 114
-      Script: {instanceID: 13010}
+      Script: {instanceID: 13012}
     - Class: 114
-      Script: {instanceID: 13030}
+      Script: {instanceID: 13032}
     - Class: 114
-      Script: {instanceID: 13372}
+      Script: {instanceID: 13374}
     - Class: 114
-      Script: {instanceID: 13608}
+      Script: {instanceID: 13610}
     - Class: 114
-      Script: {instanceID: 13762}
+      Script: {instanceID: 13764}
     - Class: 114
-      Script: {instanceID: 13886}
+      Script: {instanceID: 13888}
     - Class: 114
-      Script: {instanceID: 13894}
+      Script: {instanceID: 13896}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -185,23 +182,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12358}
     - Class: 114
-      Script: {instanceID: 12648}
+      Script: {instanceID: 12420}
     - Class: 114
-      Script: {instanceID: 12684}
+      Script: {instanceID: 12650}
     - Class: 114
-      Script: {instanceID: 12696}
+      Script: {instanceID: 12686}
     - Class: 114
-      Script: {instanceID: 12870}
+      Script: {instanceID: 12698}
     - Class: 114
-      Script: {instanceID: 13224}
+      Script: {instanceID: 12872}
     - Class: 114
-      Script: {instanceID: 13372}
+      Script: {instanceID: 13226}
     - Class: 114
-      Script: {instanceID: 13894}
+      Script: {instanceID: 13374}
     - Class: 114
-      Script: {instanceID: 13950}
+      Script: {instanceID: 13896}
     - Class: 114
-      Script: {instanceID: 52702}
+      Script: {instanceID: 13952}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -509,10 +506,16 @@ ScriptsOnlyBuild:
     className: Vrashalka
   - hash:
       serializedVersion: 2
-      Hash: de80189c78489f80e1045663e0d355fa
+      Hash: a4772e3a6b9d7f792a6069872da030f6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: player
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: vpered
   - hash:
       serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
@@ -975,12 +978,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: vpered
   platform: 5
   scenePathNames:
   - "Assets/Scenes/\u043C\u0435\u043D\u044E 1/Menu.unity"

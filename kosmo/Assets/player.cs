@@ -21,6 +21,8 @@ public class player : MonoBehaviour
     private float VertY2 = 0f;
     private float xx;
     private float yy;
+    private float HorDO;
+    private float VertDO;
 
     public new Animation animation;
     public AnimationClip a;
@@ -60,14 +62,14 @@ public class player : MonoBehaviour
     
     void Update()
     {
-        move(ref PredPolet, ref speed, ref graviti1);
+        move(ref PredPolet,ref HorDO, ref VertY2, ref speed, ref graviti1);
         sc();   //если хотетите убрать текст со скоростью, закоментете это
         if (Input.GetKeyDown(KeyCode.E))
         {
             AudioComponent1.PlayOneShot(KAISER);
         }
     }
-    void move(ref Vector3 PredPolet, ref float speed, ref float graviti1)
+    void move(ref Vector3 PredPolet,ref float HorDO,ref float VertDO, ref float speed, ref float graviti1)
     {
         float graviti = graviti1;
 
@@ -90,6 +92,8 @@ public class player : MonoBehaviour
             TimeInSky = 0f;
             PredPolet = new Vector3(horX, 0, VertY);
             vector = PredPolet;
+            VertDO = VertY;
+            HorDO = horX;
 
             graviti = graviti1 * 20;
 
@@ -144,24 +148,28 @@ public class player : MonoBehaviour
         {
             AudioComponent.Stop();
             zvyk = true;
-
             graviti = graviti1;
             speed = 3f;
             TimeInSky += Time.deltaTime;
-            PredPolet = PredPolet+ new Vector3(horX * SpeedPoletManager(TimeInSky)/50, 0, VertY * SpeedPoletManager(TimeInSky)/50);
+
+            HorDO += horX * SpeedPoletManager(TimeInSky) / 20;
+            VertDO += VertY * SpeedPoletManager(TimeInSky) / 20;
+            Debug.Log($"PredPolet {PredPolet}            HorDO {HorDO}       VertDO {VertDO}");
+            PredPolet = new Vector3(HorDO, 0, VertDO);
             HorX2 = Mathf.Clamp(PredPolet.x, -1f, 1f);
             VertY2 = Mathf.Clamp(PredPolet.z, -1f, 1f);
             if (Mathf.Sqrt(HorX2 * HorX2 + VertY2 * VertY2) > 1)  //не дает ускорится по диагонали
             {
-                float tangens = Mathf.Atan((VertY) / (HorX2));
-                //Debug.Log($"{tangens}  {horX} {VertY}");
-                if (VertY2 > 0) { VertY2 = Mathf.Abs(Mathf.Sin(tangens)); }
-                else { VertY2 = -Mathf.Abs(Mathf.Sin(tangens)); }
-                if (HorX2 > 0) { HorX2 = Mathf.Cos(tangens); }
-                else { HorX2 = -Mathf.Cos(tangens); }
+                float tangens = Mathf.Atan((VertY2) / (HorX2));
+                Debug.Log($"tangens {tangens}   HorX2 {HorX2}       VertY2 {VertY2}");
+                //if (VertY2 > 0) { VertY2 = Mathf.Abs(Mathf.Sin(tangens)); }
+                //else { VertY2 = -Mathf.Abs(Mathf.Sin(tangens)); }
+                //if (HorX2 > 0) { HorX2 = Mathf.Cos(tangens); }
+                //else { HorX2 = -Mathf.Cos(tangens); }
             }
-            Debug.Log(horX * SpeedPoletManager(TimeInSky) / 50 - PredPolet.x);
+
             PredPolet = new Vector3(HorX2,0, VertY2);
+            //Debug.Log($"PredPolet {PredPolet}            HorX2 {HorX2}       VertY2 {VertY2}");
             vector = PredPolet;
             anim.SetBool("IsWalk", false);
         }
@@ -177,11 +185,11 @@ public class player : MonoBehaviour
     {
         if (TimeInSky < 0.5f)
         {
-            return 1.3f;
+            return 0.7f;
         }
         else if (TimeInSky < 1)
         {
-            return 0.7f;
+            return 0.6f;
         }
         else
         {
