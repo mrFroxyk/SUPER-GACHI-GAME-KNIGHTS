@@ -17,10 +17,6 @@ public class player : MonoBehaviour
     private Vector3 PredPolet = new Vector3(0,0,0);
     public float maxDist = 0.2f;
     private float TimeInSky = 0f;
-    private float HorX2 = 0f;
-    private float VertY2 = 0f;
-    private float xx;
-    private float yy;
     private float HorDO;
     private float VertDO;
 
@@ -62,14 +58,14 @@ public class player : MonoBehaviour
     
     void Update()
     {
-        move(ref PredPolet,ref HorDO, ref VertY2, ref speed, ref graviti1);
+        move(ref PredPolet,ref HorDO, ref VertDO, ref speed, ref graviti1);
         sc();   //если хотетите убрать текст со скоростью, закоментете это
         if (Input.GetKeyDown(KeyCode.E))
         {
             AudioComponent1.PlayOneShot(KAISER);
         }
     }
-    void move(ref Vector3 PredPolet,ref float HorDO,ref float VertDO, ref float speed, ref float graviti1)
+    void move(ref Vector3 PredPolet, ref float HorDO, ref float VertDO, ref float speed, ref float graviti1)
     {
         float graviti = graviti1;
 
@@ -96,7 +92,15 @@ public class player : MonoBehaviour
             HorDO = horX;
 
             graviti = graviti1 * 20;
-
+            Ray ray = new Ray(from[0].transform.position, -transform.up);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag == "lestnica" )
+                {
+                    graviti = graviti1 * 20;
+                }
+            }
             if (Mathf.Abs(VertY) > 0.2) { //если двигаемся 
                 anim.SetBool("IsWalk", true); 
                 if (zvyk)
@@ -119,8 +123,6 @@ public class player : MonoBehaviour
                 AudioComponent.Stop();
                 zvyk = true;
             }
-
-
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 anim.SetBool("prisel", true);
@@ -131,8 +133,8 @@ public class player : MonoBehaviour
             }
 
             if (Input.GetKey(KeyCode.LeftControl)) { speed = 2f; } //задаем скорость
-            else if (Input.GetKey(KeyCode.LeftShift)) { speed = 5.5f; }
-            else { speed = 3.5f; }
+            else if (Input.GetKey(KeyCode.LeftShift)) { speed = 5f; }
+            else { speed = 3f; }
             
             if (PredPolet.z < -0.2) //если бежим спиной
             {
@@ -140,37 +142,42 @@ public class player : MonoBehaviour
                 //speed /= (Mathf.Abs(Mathf.Clamp(PredPolet.z, 0.5f, 1f)));
             }
             Jspeed = 0f;
-            if (Input.GetButton("Jump")) { graviti = graviti1; }
-            if (Input.GetButtonDown("Jump")) { Jspeed = JumpSpeed; graviti = graviti1; }
+            if (Input.GetButton("Jump")) { graviti = graviti1; Jspeed = JumpSpeed; }
+            //if (Input.GetButtonDown("Jump")) { Jspeed = JumpSpeed; graviti = graviti1; }
         }
 
         else //если не замле
         {
+            graviti = graviti1;
+            //Ray ray = new Ray(from[0].transform.position, -transform.up);
+            //RaycastHit hit;
+            //if (Physics.Raycast(ray, out hit))
+            //{
+            //    if (hit.collider.tag == "lestnica" && hit.distance <0.2 && Input.GetKeyDown(KeyCode.Space)==false)
+            //    {
+            //        graviti = graviti1 * 20;
+            //    }
+            //}
             AudioComponent.Stop();
             zvyk = true;
-            graviti = graviti1;
-            speed = 3f;
+            
+           
             TimeInSky += Time.deltaTime;
 
-            HorDO += horX * SpeedPoletManager(TimeInSky) / 20;
-            VertDO += VertY * SpeedPoletManager(TimeInSky) / 20;
-            Debug.Log($"PredPolet {PredPolet}            HorDO {HorDO}       VertDO {VertDO}");
-            PredPolet = new Vector3(HorDO, 0, VertDO);
-            HorX2 = Mathf.Clamp(PredPolet.x, -1f, 1f);
-            VertY2 = Mathf.Clamp(PredPolet.z, -1f, 1f);
-            if (Mathf.Sqrt(HorX2 * HorX2 + VertY2 * VertY2) > 1)  //не дает ускорится по диагонали
+            HorDO += horX * SpeedPoletManager(TimeInSky) / 30;
+            VertDO += VertY * SpeedPoletManager(TimeInSky) / 30;
+            HorDO = Mathf.Clamp(HorDO, -1f, 1f);
+            VertDO = Mathf.Clamp(VertDO, -1f, 1f);
+            if (Mathf.Sqrt(HorDO * HorDO + VertDO * VertDO) > 1)  //не дает ускорится по диагонали
             {
-                float tangens = Mathf.Atan((VertY2) / (HorX2));
-                Debug.Log($"tangens {tangens}   HorX2 {HorX2}       VertY2 {VertY2}");
-                //if (VertY2 > 0) { VertY2 = Mathf.Abs(Mathf.Sin(tangens)); }
-                //else { VertY2 = -Mathf.Abs(Mathf.Sin(tangens)); }
-                //if (HorX2 > 0) { HorX2 = Mathf.Cos(tangens); }
-                //else { HorX2 = -Mathf.Cos(tangens); }
-            }
+                float tangens = Mathf.Atan((VertDO) / (HorDO));
 
-            PredPolet = new Vector3(HorX2,0, VertY2);
-            //Debug.Log($"PredPolet {PredPolet}            HorX2 {HorX2}       VertY2 {VertY2}");
-            vector = PredPolet;
+                if (VertDO > 0) { VertDO = Mathf.Abs(Mathf.Sin(tangens)); }
+                else { VertDO = -Mathf.Abs(Mathf.Sin(tangens)); }
+                if (HorDO > 0) { HorDO = Mathf.Cos(tangens); }
+                else { HorDO = -Mathf.Cos(tangens); }
+            }
+            vector = new Vector3(HorDO, 0, VertDO); ;
             anim.SetBool("IsWalk", false);
         }
         //Debug.Log($"{NaZemle()} {graviti}  {transform.position.y}"); //дебагер)))
@@ -185,15 +192,15 @@ public class player : MonoBehaviour
     {
         if (TimeInSky < 0.5f)
         {
-            return 0.7f;
-        }
-        else if (TimeInSky < 1)
-        {
             return 0.6f;
+        }
+        else if (TimeInSky < 3)
+        {
+            return 0.5f;
         }
         else
         {
-            return 0.5f;
+            return 0.3f;
         }
     }
     void Pere()  //перезарядка звука
@@ -218,7 +225,6 @@ public class player : MonoBehaviour
             }
         }
         Dist /= 11;
-
         if (CharacterController.isGrounded == false | Dist>maxDist) { return false; }
 
         else { return CharacterController.isGrounded; }

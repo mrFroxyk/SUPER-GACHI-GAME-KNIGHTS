@@ -7454,7 +7454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793413959}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.3763404, y: 0.23, z: 6.686534}
+  m_LocalPosition: {x: -4.3763404, y: 0.23, z: 20.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 554948886}
@@ -8833,7 +8833,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31436
+  m_Name: pb_Mesh15302
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14749,7 +14749,7 @@ GameObject:
   - component: {fileID: 1894296839}
   m_Layer: 0
   m_Name: Stairs
-  m_TagString: stena
+  m_TagString: lestnica
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20759,8 +20759,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 9.06
-  m_Radius: 2
+  m_Height: 9
+  m_Radius: 3
   m_SlopeLimit: 45
   m_StepOffset: 1
   m_SkinWidth: 0.1

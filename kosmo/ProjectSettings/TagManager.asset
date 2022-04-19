@@ -6,6 +6,7 @@ TagManager:
   tags:
   - stena
   - knopka
+  - lestnica
   layers:
   - Default
   - TransparentFX
