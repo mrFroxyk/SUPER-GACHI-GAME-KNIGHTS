@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - CamY
     - CentreEcranaVectorLuc
     - MainMenu
     - Options_Menu
@@ -199,6 +200,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13896}
     - Class: 114
       Script: {instanceID: 13952}
+    - Class: 114
+      Script: {instanceID: 440514}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -506,7 +509,7 @@ ScriptsOnlyBuild:
     className: Vrashalka
   - hash:
       serializedVersion: 2
-      Hash: a4772e3a6b9d7f792a6069872da030f6
+      Hash: 2d4af7ce2f904f662aadf53118cae69c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: player
@@ -978,6 +981,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: ee097270c8285e482bea0da43be0892c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CamY
   platform: 5
   scenePathNames:
   - "Assets/Scenes/\u043C\u0435\u043D\u044E 1/Menu.unity"

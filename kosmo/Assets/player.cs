@@ -9,6 +9,7 @@ public class player : MonoBehaviour
     CharacterController CharacterController;  //переменные контроя движения
     public float speed = 2f;
     public GameObject cam;
+    public GameObject CamY;
     public GameObject PoletCam;
     public GameObject[] from;
     public float JumpSpeed = 3f;
@@ -20,10 +21,9 @@ public class player : MonoBehaviour
     private float HorDO;
     private float VertDO;
 
-    public new Animation animation;
-    public AnimationClip a;
     public Animator anim;
 
+    public GameObject kaiser;
     public new AudioClip audio;
     public AudioClip KAISER;
     public AudioClip run;
@@ -42,7 +42,7 @@ public class player : MonoBehaviour
     {
         CharacterController = GetComponent<CharacterController>();
         AudioComponent = from[0].GetComponent<AudioSource>();
-        AudioComponent1 = from[1].GetComponent<AudioSource>();
+        AudioComponent1 = kaiser.GetComponent<AudioSource>();
         //animation = cam.GetComponent<Animation>();
         anim = cam.GetComponent<Animator>();
         anim.SetBool("IsWalk", false);
@@ -60,11 +60,9 @@ public class player : MonoBehaviour
     {
         move(ref PredPolet,ref HorDO, ref VertDO, ref speed, ref graviti1);
         sc();   //если хотетите убрать текст со скоростью, закоментете это
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            AudioComponent1.PlayOneShot(KAISER);
-        }
+        SoundManager();
     }
+
     void move(ref Vector3 PredPolet, ref float HorDO, ref float VertDO, ref float speed, ref float graviti1)
     {
         float graviti = graviti1;
@@ -76,7 +74,6 @@ public class player : MonoBehaviour
         if (Mathf.Sqrt(horX * horX + VertY * VertY) > 1)  //не дает ускорится по диагонали
         {
             float tangens = Mathf.Atan((VertY) / (horX));
-            //Debug.Log($"{tangens}  {horX} {VertY}");
             if (VertY > 0) { VertY = Mathf.Abs(Mathf.Sin(tangens)); }
             else { VertY = -Mathf.Abs(Mathf.Sin(tangens)); }
             if (horX > 0) { horX = Mathf.Cos(tangens); }
@@ -86,10 +83,10 @@ public class player : MonoBehaviour
         if (NaZemle())
         {
             TimeInSky = 0f;
-            PredPolet = new Vector3(horX, 0, VertY);
-            vector = PredPolet;
-            VertDO = VertY;
-            HorDO = horX;
+            Vector3 vector3 = CamY.transform.TransformDirection(new Vector3(horX, 0, VertY));
+            vector = vector3;
+            VertDO = vector3.z;
+            HorDO = vector3.x;
 
             graviti = graviti1 * 20;
             Ray ray = new Ray(from[0].transform.position, -transform.up);
@@ -136,19 +133,20 @@ public class player : MonoBehaviour
             else if (Input.GetKey(KeyCode.LeftShift)) { speed = 5f; }
             else { speed = 3f; }
             
-            if (PredPolet.z < -0.2) //если бежим спиной
+            if (VertY < -0.2) //если бежим спиной
             {
                 speed = Mathf.Clamp(speed, 0f, 2.5f);
-                //speed /= (Mathf.Abs(Mathf.Clamp(PredPolet.z, 0.5f, 1f)));
             }
             Jspeed = 0f;
             if (Input.GetButton("Jump")) { graviti = graviti1; Jspeed = JumpSpeed; }
-            //if (Input.GetButtonDown("Jump")) { Jspeed = JumpSpeed; graviti = graviti1; }
         }
 
         else //если не замле
         {
-            graviti = graviti1;
+            graviti = graviti1;;
+            if (speed == 2f) { speed = 1.5f; }
+            else if (speed == 3f) { speed = 2.5f; }
+            else if (speed == 5f) { speed = 4f; }
             //Ray ray = new Ray(from[0].transform.position, -transform.up);
             //RaycastHit hit;
             //if (Physics.Raycast(ray, out hit))
@@ -161,11 +159,11 @@ public class player : MonoBehaviour
             AudioComponent.Stop();
             zvyk = true;
             
-           
             TimeInSky += Time.deltaTime;
 
-            HorDO += horX * SpeedPoletManager(TimeInSky) / 30;
-            VertDO += VertY * SpeedPoletManager(TimeInSky) / 30;
+            Vector3 vector3 = CamY.transform.TransformDirection(new Vector3(horX / 100, 0, VertY  / 100));
+            HorDO += vector3.x;
+            VertDO += vector3.z;
             HorDO = Mathf.Clamp(HorDO, -1f, 1f);
             VertDO = Mathf.Clamp(VertDO, -1f, 1f);
             if (Mathf.Sqrt(HorDO * HorDO + VertDO * VertDO) > 1)  //не дает ускорится по диагонали
@@ -177,12 +175,15 @@ public class player : MonoBehaviour
                 if (HorDO > 0) { HorDO = Mathf.Cos(tangens); }
                 else { HorDO = -Mathf.Cos(tangens); }
             }
-            vector = new Vector3(HorDO, 0, VertDO); ;
+            
+            vector = new Vector3(HorDO, 0, VertDO); 
+
             anim.SetBool("IsWalk", false);
         }
         //Debug.Log($"{NaZemle()} {graviti}  {transform.position.y}"); //дебагер)))
         vector *= speed;
-        vector = PoletCam.transform.TransformDirection(vector);
+   
+        //vector = PoletCam.transform.TransformDirection(vector);
         Jspeed -= graviti * Time.deltaTime;
         vector.y = Jspeed;
         vector.y -= graviti * Time.deltaTime; //гравитация 
@@ -202,6 +203,43 @@ public class player : MonoBehaviour
         {
             return 0.3f;
         }
+    }
+    void SoundManager()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            AudioComponent1.Stop();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AudioComponent1.PlayOneShot(KAISER);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            AudioComponent1.pitch = 0.6f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            AudioComponent1.pitch = 0.7f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            AudioComponent1.pitch = 0.8f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            AudioComponent1.pitch = 0.9f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            AudioComponent1.pitch = 1f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            StartCoroutine(pitc());
+            
+        }
+            
     }
     void Pere()  //перезарядка звука
     {
@@ -244,6 +282,15 @@ public class player : MonoBehaviour
 
         return speed;
     }
+    IEnumerator pitc()
+    {
+        for (float i = 0f; i < 8f; i += Time.deltaTime)
+        {
+            Debug.Log("ff");
+            AudioComponent1.pitch = 1f-i/20; 
+            yield return null;
+        }
+    }
     void sc() //запомниаем максимальную скорость
     {
         frame++;
@@ -264,12 +311,3 @@ public class player : MonoBehaviour
     //    }
     //}
 }
-//IEnumerator KachanieGolovoi()
-//{
-//    Debug.Log("222");
-//    for (float i=0f; i < 0.2; i += Time.deltaTime)
-//    {
-//        cam.transform.position = new Vector3(transform.position.x, transform.position.y + 1 + (Mathf.Sin(i * 20)*1), transform.position.z);
-//        yield return null;
-//    }
-//}
