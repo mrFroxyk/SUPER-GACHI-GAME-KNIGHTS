@@ -5,6 +5,21 @@ using UnityEngine;
 public class ememy : vrag
 {
     [SerializeField] private int hp = 2;
+    //public static ememy Instance { get; set; }
+    private void Awake()
+    {
+        //Instance = this;
+    }
+    public override void hit()
+    {
+        hp -= 1;
+        Debug.Log(hp);
+        if (hp == 0)
+        {
+            die();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject == Controler.Instance.gameObject)

@@ -18,18 +18,7 @@ public class ForImport : MonoBehaviour
 		//check_Stena = GetComponentInChildren<check_stena>();
 		//check_Stena2 = GetComponentInChildren<check_stena>();
 	}
-	private States State
-	{
-		get { return (States)anim.GetInteger("state"); }
-		set { anim.SetInteger("state", (int)value); }
-	}
-	public enum States
-	{
-		Idle,
-		Run,
-		Jump
 
-	}
 
 	void Update()
 	{
@@ -66,4 +55,17 @@ public class ForImport : MonoBehaviour
 //else if (Input.GetButtonUp("Crouch"))
 //{
 //    crouch = false;
+//}
+
+//private States State
+//{
+//	get { return (States)anim.GetInteger("state"); }
+//	set { anim.SetInteger("state", (int)value); }
+//}
+//public enum States
+//{
+//	Idle,
+//	Run,
+//	Jump
+
 //}

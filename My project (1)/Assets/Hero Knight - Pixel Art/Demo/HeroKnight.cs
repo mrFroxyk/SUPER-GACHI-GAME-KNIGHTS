@@ -23,6 +23,10 @@ public class HeroKnight : MonoBehaviour {
     private float               m_timeSinceAttack = 0.0f;
     private float               m_delayToIdle = 0.0f;
 
+    public Transform attackPos;
+    public float attackRange;
+    public LayerMask enemy;
+
 
     // Use this for initialization
     void Start ()
@@ -110,9 +114,11 @@ public class HeroKnight : MonoBehaviour {
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             m_animator.SetTrigger("Attack" + m_currentAttack);
 
+
             // Reset timer
             m_timeSinceAttack = 0.0f;
         }
+
 
         // Block
         else if (Input.GetMouseButtonDown(1) && !m_rolling)
