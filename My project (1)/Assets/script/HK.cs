@@ -130,11 +130,10 @@ public class HK : MonoBehaviour
 
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             m_animator.SetTrigger("Attack" + m_currentAttack);
-            Debug.Log("pivo");
             Collider2D[] colliders = Physics2D.OverlapCircleAll(Att.transform.position, attackRange, enemy);
             for (int i = 0; i < colliders.Length; i++)
             {
-                colliders[i].GetComponent<ememy>().hit();
+                colliders[i].GetComponent<enemy>().hit();
                 //ememy.Instance.hit();
             }
 

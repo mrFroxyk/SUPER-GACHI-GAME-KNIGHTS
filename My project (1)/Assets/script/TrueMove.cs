@@ -11,8 +11,8 @@ public class TrueMove : MonoBehaviour
 
 	float horizontalMove = 0f;
 	bool jump = false;
-	bool crouch = false;
-	bool MoveVStene = false;
+	//bool crouch = false;
+	//bool MoveVStene = false;
 	public check_stena check_Stena;
     private void Start()
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkEn : vrag
+public class WalkEn : sushnosti
 {
     private SpriteRenderer sprite;
     private Vector3 dir;
