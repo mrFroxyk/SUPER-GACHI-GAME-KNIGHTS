@@ -6,6 +6,9 @@ public class enemy : sushnosti
 {
     [SerializeField] private int hp = 2;
     protected SpriteRenderer SpriteRenderer;
+    public bool IsCanPolucitDamage = true;
+    public float TimeNoPolucUron=0.1f;
+    public float TimeIzmeneniaCveta = 0.1f;
     //public static ememy Instance { get; set; }
     private void Awake()
     {
@@ -14,10 +17,17 @@ public class enemy : sushnosti
     }
     public override void hit()
     {
-        hp -= 1;
-        Debug.Log(hp);
-        SpriteRenderer.color = Color.red;
-        StartCoroutine(cvet());
+        if (IsCanPolucitDamage)
+        {
+            hp -= 1;
+
+            SpriteRenderer.color = Color.red;
+            StartCoroutine(IsCanUron());
+            StartCoroutine(cvet());
+            Invoke("Pere", TimeNoPolucUron+0.05f);
+        }
+
+        
         if (hp == 0)
         {
             die();
@@ -39,16 +49,27 @@ public class enemy : sushnosti
 
         //}
     }
+    IEnumerator IsCanUron()
+    {
+        for (float i = 0f; i < TimeNoPolucUron; i += Time.deltaTime)
+        {
+
+            IsCanPolucitDamage = false;
+            yield return null;
+        }
+    }
     IEnumerator cvet()
     {
-        float z = 0.8f;
-        for (float i = 0f; i < z; i += Time.deltaTime)
+        for (float i = 0f; i < TimeIzmeneniaCveta; i += Time.deltaTime)
         {
             //Debug.Log(Color.Lerp(Color.red, Color.white, z - i));
-            SpriteRenderer.color = Color.Lerp(Color.white,Color.red, z - i);        
-
+            SpriteRenderer.color = Color.Lerp(Color.white, Color.red, TimeIzmeneniaCveta - i);
 
             yield return null;
         }
+    }
+    void Pere()  //перезарядка звука
+    {
+        IsCanPolucitDamage = true;
     }
 }

@@ -17,7 +17,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
-    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -31,6 +30,7 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnimatorStateTransitionInspector
     - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
@@ -46,7 +46,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
-    - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -94,8 +93,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11408}
     - Class: 114
-      Script: {instanceID: 11568}
-    - Class: 114
       Script: {instanceID: 11622}
     - Class: 114
       Script: {instanceID: 11624}
@@ -106,11 +103,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12082}
     - Class: 114
-      Script: {instanceID: 12296}
+      Script: {instanceID: 12136}
     - Class: 114
-      Script: {instanceID: 13070}
+      Script: {instanceID: 12298}
     - Class: 114
-      Script: {instanceID: 13536}
+      Script: {instanceID: 13072}
+    - Class: 114
+      Script: {instanceID: 13538}
     - Class: 114
       Script: {instanceID: 13768}
     - Class: 114
@@ -121,11 +120,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14152}
     - Class: 114
       Script: {instanceID: 14394}
-    - Class: 114
-      Script: {instanceID: 18482}
     - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -236,7 +231,7 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
-      Hash: 6d229a2f78f752c84a760d3201a8a1a7
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: move
@@ -266,7 +261,7 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: b459b06476603f420d59342209ab5c3d
+      Hash: 147a263b46b008048d6a4bb950b8f417
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HK
@@ -374,6 +369,12 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
+      Hash: a8b5a1753a62044f88c8c57705ab2c3d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: enemy
+  - hash:
+      serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -476,7 +477,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 61de5fea8bd57c1b042b12b67de92d68
+      Hash: 1d36ea0e4303c0372c50832f7caf69f0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Hero
@@ -726,12 +727,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 7b27c87d5bbeeb1801942cbcc63ac1c1
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: enemy
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

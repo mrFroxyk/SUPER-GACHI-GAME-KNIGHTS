@@ -9,7 +9,10 @@ public class Hero : sushnosti
     public int hp=4;
     protected SpriteRenderer SpriteRenderer;
     private bool IsCanPolucitDamage = true;
-    public float z = 0.8f;
+    
+    public float TimeCvetaAndGivePizdi = 0.8f;
+    
+    public GameObject[] gm;
     public void Awake()
     {
         Instance = this;
@@ -17,19 +20,24 @@ public class Hero : sushnosti
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(IsCanPolucitDamage);
-    }
     public override void hit()
     {
         if (IsCanPolucitDamage)
         {
             SpriteRenderer.color = Color.red;
             StartCoroutine(cvet());
-            Invoke("Pere", z);
+            Invoke("Pere", TimeCvetaAndGivePizdi);
             hp -= 1;
-            Debug.Log(hp);
+            
+            for (int i = 0;  i <= 4-hp; i++)
+            {
+                //Debug.Log($"hp {hp}     i {i}");
+                gm[4-i].GetComponent<Animator>().SetBool("IsDie", true);
+            }
+            //foreach (GameObject i in gm)
+            //{
+                
+            //}
         }
         
         if (hp == 0)
@@ -37,18 +45,30 @@ public class Hero : sushnosti
             die();
         }
     }
+    public override void die()
+    {
+        hp = 5;
+        transform.position = Vector3.zero;
+        foreach (GameObject i in gm)
+        {
+            i.GetComponent<Animator>().SetBool("IsDie",false);
+        }
+    }
     IEnumerator cvet()
     {
         
-        for (float i = 0f; i < z; i += Time.deltaTime)
+        for (float i = 0f; i < TimeCvetaAndGivePizdi; i += Time.deltaTime)
         {
             //Debug.Log(Color.Lerp(Color.red, Color.white, z - i));
-            SpriteRenderer.color = Color.Lerp(Color.white, Color.red, z - i);
+            SpriteRenderer.color = Color.Lerp(Color.white, Color.red, TimeCvetaAndGivePizdi - i);
             IsCanPolucitDamage = false;
 
             yield return null;
         }
+        
     }
+    
+    
     void Pere()  //перезарядка звука
     {
         IsCanPolucitDamage = true;

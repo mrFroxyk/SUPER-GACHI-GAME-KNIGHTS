@@ -6,7 +6,7 @@ public class HK : MonoBehaviour
 
     [SerializeField] float m_speed = 4.0f;
     [SerializeField] float m_jumpForce = 7.5f;
-    [SerializeField] float m_rollForce = 6.0f;
+    //[SerializeField] float m_rollForce = 6.0f;
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
 
@@ -29,7 +29,8 @@ public class HK : MonoBehaviour
     public float attackRange;
     public LayerMask enemy;
     public bool flipXS = false;
-    
+    private bool IsBiet = false;
+    public float BitTime = 0.5f;
 
 
     // Use this for initialization
@@ -47,6 +48,15 @@ public class HK : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsBiet)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(Att.transform.position, attackRange, enemy);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].GetComponent<enemy>().hit();
+                //ememy.Instance.hit();
+            }
+        }
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
 
@@ -127,15 +137,15 @@ public class HK : MonoBehaviour
             // Reset Attack combo if time since last attack is too large
             if (m_timeSinceAttack > 1.0f)
                 m_currentAttack = 1;
-
+            if (IsBiet == false)
+            {
+                StartCoroutine(bit());
+                Invoke("NoBiet", BitTime+Time.deltaTime*3f);
+            }
+            
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             m_animator.SetTrigger("Attack" + m_currentAttack);
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(Att.transform.position, attackRange, enemy);
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                colliders[i].GetComponent<enemy>().hit();
-                //ememy.Instance.hit();
-            }
+            
 
             // Reset timer
             m_timeSinceAttack = 0.0f;
@@ -216,6 +226,21 @@ public class HK : MonoBehaviour
             GameObject dust = Instantiate(m_slideDust, spawnPosition, gameObject.transform.localRotation) as GameObject;
             // Turn arrow in correct direction
             dust.transform.localScale = new Vector3(m_facingDirection, 1, 1);
+        }
+    }
+    void NoBiet()
+    {
+        IsBiet = false;
+    }
+    IEnumerator bit()
+    {
+        for (float i = 0f; i < BitTime; i += Time.deltaTime)
+        {
+            //Debug.Log(Color.Lerp(Color.red, Color.white, z - i));
+
+            IsBiet = true;
+
+            yield return null;
         }
     }
 }
