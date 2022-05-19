@@ -25,7 +25,6 @@ public class paralax : MonoBehaviour
         {
             delta.y = 0;
         }
-        Debug.Log(delta.y);
         
         targetPreviousPosition = followingTarget.position;
         transform.position += delta * parallaxStrength;

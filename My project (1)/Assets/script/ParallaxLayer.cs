@@ -12,17 +12,31 @@ namespace Platformer.View
         /// Movement of the layer is scaled by this value.
         /// </summary>
         public Vector3 movementScale = Vector3.one;
-
+        private bool disableVerticalParallax=false;
         Transform _camera;
 
         void Awake()
         {
             _camera = Camera.main.transform;
+            Invoke("sc", 0.2f);
         }
 
         void LateUpdate()
         {
-            transform.position = Vector3.Scale(_camera.position, movementScale);
+            if (disableVerticalParallax)
+            {
+                transform.position = Vector3.Scale(_camera.position, movementScale);
+            }
+        }
+        private void FixedUpdate()
+        {
+            
+            
+
+        }
+        void sc()
+        {
+            disableVerticalParallax = false;
         }
 
     }
